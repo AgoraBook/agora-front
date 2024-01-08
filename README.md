@@ -12,7 +12,6 @@
   <img alt="Github top language" src="https://img.shields.io/github/languages/top/AgoraBook/agora-front?color=56BEB8">
   <img alt="Github language count" src="https://img.shields.io/github/languages/count/AgoraBook/agora-front?color=56BEB8">
   <img alt="Repository size" src="https://img.shields.io/github/repo-size/AgoraBook/agora-front?color=56BEB8">
-  <img alt="License" src="https://img.shields.io/github/license/osh6006/AgoraBook/agora-front?color=56BEB8">
 
   <!-- <img alt="Github issues" src="https://img.shields.io/github/issues/{{YOUR_GITHUB_USERNAME}}/gaebalin-front?color=56BEB8" /> -->
 
@@ -43,7 +42,7 @@
 
 ## :dart: About
 
-개발자 종합 커뮤니티 개발인 프론트엔드 레포지토리 입니다.
+독서 모임 프로젝트 Agora 프론트엔드 레포지토리 입니다.
 
 [Demo]()
 
