@@ -11,6 +11,8 @@ import clsx from 'clsx';
 import { useQuery } from '@tanstack/react-query';
 import { getDog } from './services/dog';
 
+import { motion } from 'framer-motion';
+
 function App() {
   const { mode, changeMode } = useModeStore((state) => state);
   const [now, setNow] = useState<string>('');
@@ -51,13 +53,13 @@ function App() {
   return (
     <main
       className={clsx(
-        'flex items-center justify-center  h-[100dvh]',
+        'flex h-[100dvh] items-center justify-center',
         mode === 'light' ? 'bg-white text-black' : 'bg-[#20212C] text-white'
       )}
     >
       <div
         className={clsx(
-          'flex flex-col items-center justify-center w-[90%] h-[80%] rounded-xl gap-4',
+          'flex h-[80%] w-[90%] flex-col items-center justify-center gap-4 rounded-xl',
           mode === 'light' ? 'bg-[#E4EBFA]' : 'bg-[#000112]'
         )}
       >
@@ -74,20 +76,44 @@ function App() {
         </div>
         <button
           onClick={handleClick}
-          className='bg-[#635FC7] px-2 py-3 rounded-lg text-white font-bold'
+          className='rounded-lg bg-[#635FC7] px-2 py-3 font-bold text-white'
         >
           {mode === 'light' ? '라이트 🤓' : '다크 😎'}
         </button>
         <hr />
-        <h2>React Query 테스트</h2>
-        {query.isLoading && 'loading...'}
-        {query.isSuccess && (
-          <img
-            src={query.data.message}
-            alt='dog'
-            className='aspect-square rounded-lg max-w-48'
-          />
-        )}
+
+        <div className='flex gap-x-8'>
+          <div>
+            <h2>React Query 테스트</h2>
+            {query.isLoading && 'loading...'}
+            {query.isSuccess && (
+              <img
+                src={query.data.message}
+                alt='dog'
+                className='aspect-square max-w-48 rounded-lg'
+              />
+            )}
+          </div>
+          <div>
+            <h2>Framer 테스트</h2>
+            <motion.div
+              className='ml-10 mt-16 w-fit text-5xl'
+              animate={{
+                translateY: -50,
+                rotate: [180, 360],
+              }}
+              transition={{
+                duration: 0.4,
+                repeat: Infinity,
+                repeatType: 'reverse',
+                bounce: 10,
+                bounceDamping: 20,
+              }}
+            >
+              🏀
+            </motion.div>
+          </div>
+        </div>
       </div>
     </main>
   );
