@@ -63,7 +63,7 @@ function App() {
           mode === 'light' ? 'bg-[#E4EBFA]' : 'bg-[#000112]'
         )}
       >
-        <h1 className='text-2xl font-bold'>Hello Agora</h1>
+        <h1 className='text-2xl font-bold'>Hello Agora Git branch test~</h1>
         <time>지금은 몇시 인가요? {now}</time>
         <div className='flex flex-col items-center'>
           <img
