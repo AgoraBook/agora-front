@@ -12,6 +12,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getDog } from './services/dog';
 
 import { motion } from 'framer-motion';
+import Button from './components/common/button';
 
 function App() {
   const { mode, changeMode } = useModeStore((state) => state);
@@ -53,7 +54,7 @@ function App() {
   return (
     <main
       className={clsx(
-        'flex h-[100dvh] items-center justify-center',
+        'flex h-[100dvh] items-center justify-center ',
         mode === 'light' ? 'bg-white text-black' : 'bg-[#20212C] text-white'
       )}
     >
@@ -64,7 +65,7 @@ function App() {
         )}
       >
         <h1 className='text-2xl font-bold'>Hello Agora Git branch test~</h1>
-        <time>지금은 몇시 인가요? {now}</time>
+        <time className='font-light'>지금은 몇시 인가요? {now}</time>
         <div className='flex flex-col items-center'>
           <img
             src={avatar.randomImage}
@@ -74,12 +75,9 @@ function App() {
           <p>{avatar.randomName}</p>
           <p>{avatar.randomEmail}</p>
         </div>
-        <button
-          onClick={handleClick}
-          className='rounded-lg bg-[#635FC7] px-2 py-3 font-bold text-white'
-        >
+        <Button color='main' size='sm' disabled onClick={handleClick}>
           {mode === 'light' ? '라이트 🤓' : '다크 😎'}
-        </button>
+        </Button>
         <hr />
 
         <div className='flex gap-x-8'>
@@ -90,7 +88,7 @@ function App() {
               <img
                 src={query.data.message}
                 alt='dog'
-                className='aspect-square max-w-48 rounded-lg'
+                className='aspect-square w-[200px] max-w-48 rounded-lg'
               />
             )}
           </div>

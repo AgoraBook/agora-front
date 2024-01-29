@@ -2,8 +2,8 @@ import clsx from 'clsx';
 import { ButtonHTMLAttributes } from 'react';
 
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  color?: 'main' | 'secondary' | 'destructive';
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'wide';
+  color: 'main' | 'secondary' | 'destructive';
+  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'wide';
 }
 
 const sizes = {
@@ -17,7 +17,7 @@ const sizes = {
 
 const colors = {
   main: 'border-Main bg-Main text-White ',
-  secondary: 'bg-Seondary text-Main',
+  secondary: 'bg-Seondarytext-Main',
   destructive:
     'border-Red bg-Red text-White hover:border-RedHover hover:bg-RedHover',
 };
@@ -37,9 +37,9 @@ const Button: React.FunctionComponent<IButtonProps> = ({
         transition-all active:scale-95
         `,
         disabled
-          ? 'bg-Disabled text-DisabledColor pointer-events-none border-transparent'
-          : color && colors[color],
-        size && sizes[size]
+          ? 'text-DisabledColor pointer-events-none border-transparent bg-gray-300'
+          : colors[color],
+        sizes[size]
       )}
       {...props}
     >
