@@ -12,6 +12,7 @@ const RouteConfiguration = () => {
   const routes: RouteObject[] = [
     {
       path: '/',
+      //  여기에 경로보호 HOC 혹은 컴포넌트로 감싸기
       element: <App />,
       errorElement: <div>error</div>,
       children: [

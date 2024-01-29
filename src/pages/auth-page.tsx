@@ -3,7 +3,7 @@ import * as React from 'react';
 interface IAuthPageProps {}
 
 const AuthPage: React.FunctionComponent<IAuthPageProps> = () => {
-  return <></>;
+  return <>Auth</>;
 };
 
 export default AuthPage;
