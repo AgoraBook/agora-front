@@ -16,8 +16,8 @@ const sizes = {
 };
 
 const colors = {
-  main: 'border-Main bg-Main text-White ',
-  secondary: 'bg-Seondarytext-Main',
+  main: 'border-main bg-main text-white',
+  secondary: 'bg-secondary text-white',
   destructive:
     'border-Red bg-Red text-White hover:border-RedHover hover:bg-RedHover',
 };

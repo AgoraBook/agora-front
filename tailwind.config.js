@@ -5,8 +5,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        Main: '#CAB188',
-        MainHover: '#03878C',
+        main: '#CAB188',
+        secondary: '#03878C',
       },
     },
   },
