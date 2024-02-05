@@ -1,13 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
-import "./index.css";
-import RootProvider from "./providers/RootProvider.tsx";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import RootProvider from './providers/RootProvider.tsx';
+import RouteConfiguration from './routes/route-configuration.tsx';
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <RootProvider>
-      <App />
+      <RouteConfiguration />
     </RootProvider>
   </React.StrictMode>
 );
