@@ -75,7 +75,7 @@ function App() {
           <p>{avatar.randomName}</p>
           <p>{avatar.randomEmail}</p>
         </div>
-        <Button color='main' size='sm' disabled onClick={handleClick}>
+        <Button color='secondary' size='xl' onClick={handleClick}>
           {mode === 'light' ? '라이트 🤓' : '다크 😎'}
         </Button>
         <hr />
