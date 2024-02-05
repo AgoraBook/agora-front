@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         mainColor: '#03878C',
+        error: '#FF0000',
       },
     },
   },
