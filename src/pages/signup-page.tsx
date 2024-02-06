@@ -49,7 +49,7 @@ export const SignupPage = () => {
           />
           <CheckFields className='flex flex-col gap-[15px]' />
           <Button color='secondary' size='xl' type='submit'>
-            Submit
+            완료
           </Button>
         </form>
       </FormProvider>

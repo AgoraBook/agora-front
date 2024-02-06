@@ -18,7 +18,6 @@ export const Input = forwardRef(
     {
       left,
       right,
-      // isError,
       isValid = null,
       children,
       ...props
