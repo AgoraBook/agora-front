@@ -7,6 +7,7 @@ import {
 import App from '../App';
 import HomePage from '../pages/home-page';
 import AuthPage from '../pages/auth-page';
+import { SignupPage } from '../pages/signup-page';
 
 const RouteConfiguration = () => {
   const routes: RouteObject[] = [
@@ -25,6 +26,11 @@ const RouteConfiguration = () => {
     {
       path: '/auth',
       element: <AuthPage />,
+      errorElement: <div>error</div>,
+    },
+    {
+      path: '/signup',
+      element: <SignupPage />,
       errorElement: <div>error</div>,
     },
   ];

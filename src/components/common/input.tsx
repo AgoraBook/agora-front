@@ -1,16 +1,51 @@
-import { InputHTMLAttributes, PropsWithChildren } from 'react';
+import clsx from 'clsx';
+import {
+  ForwardedRef,
+  InputHTMLAttributes,
+  PropsWithChildren,
+  ReactNode,
+  forwardRef,
+} from 'react';
 
-export const Input = ({ children }: PropsWithChildren) => {
-  return (
-    <div className='flex w-full items-center rounded-[6px] border-[1.5px] border-solid border-[#ADB6BD] bg-white p-2.5 focus-within:border-[2px] focus-within:border-mainColor '>
-      {children}
-    </div>
-  );
-};
+type InputType = {
+  left?: ReactNode;
+  right?: ReactNode;
+  isError?: boolean;
+  isValid?: boolean;
+} & InputHTMLAttributes<HTMLInputElement>;
 
-const InnerInput = (props: InputHTMLAttributes<HTMLInputElement>) => {
-  return (
-    <input className=' mx-[5px] flex-1 text-[15px] outline-none ' {...props} />
-  );
-};
-Input.InnerInput = InnerInput;
+export const Input = forwardRef(
+  (
+    {
+      left,
+      right,
+      isError,
+      isValid,
+      children,
+      ...props
+    }: PropsWithChildren<InputType>,
+    ref: ForwardedRef<HTMLInputElement>
+  ) => {
+    return (
+      <div
+        className={clsx(
+          isValid && 'border-secondary',
+          isError && 'border-error',
+          'focus-within:border-secondary flex w-full items-center rounded-[6px] border-[1.5px] border-solid border-[#ADB6BD] bg-white p-2.5 focus-within:border-[2px] '
+        )}
+      >
+        {left}
+        <input
+          ref={ref}
+          className={clsx(
+            left && 'ml-[5px]',
+            right && 'mr-[5px]',
+            ' flex-1 text-[15px] outline-none '
+          )}
+          {...props}
+        />
+        {right}
+      </div>
+    );
+  }
+);

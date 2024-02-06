@@ -7,6 +7,7 @@ export default {
       colors: {
         main: '#CAB188',
         secondary: '#03878C',
+        error: '#FF0000',
       },
     },
   },

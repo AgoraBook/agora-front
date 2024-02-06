@@ -1,8 +1,5 @@
-type ErrorMessage = {
-  isError: boolean;
-  message: string;
-};
-export const ErrorMessage = ({ isError, message }: ErrorMessage) => {
-  if (!isError) return null;
-  return <span className='text-error text-[11px]'>{message}</span>;
+import { PropsWithChildren } from 'react';
+
+export const ErrorMessage = ({ children }: PropsWithChildren) => {
+  return <span className='text-error text-[11px]'>{children}</span>;
 };
