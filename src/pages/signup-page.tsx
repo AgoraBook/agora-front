@@ -1,6 +1,7 @@
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { TextFields } from '../components/signup/text-fields';
+import { CheckFields } from '../components/signup/check-fields';
 
 type FormInputs = {
   email: string;
@@ -15,6 +16,7 @@ export const SignupPage = () => {
   const methods = useForm<FormInputs>({
     shouldUseNativeValidation: false,
     mode: 'onBlur',
+    criteriaMode: 'firstError',
   });
 
   const formValid = () => {
@@ -34,6 +36,7 @@ export const SignupPage = () => {
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(formValid, formInvalid)}>
           <TextFields showCode={showCode} setShowCode={setShowCode} />
+          <CheckFields />
           <button type='submit'>Submit</button>
         </form>
       </FormProvider>
