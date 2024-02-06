@@ -6,11 +6,16 @@ import { Dispatch, SetStateAction } from 'react';
 type TextFieldName = 'email' | 'code' | 'password' | 'confirmPassword';
 
 type TextFieldsProps = {
+  className?: string;
   showCode: boolean;
   setShowCode: Dispatch<SetStateAction<boolean>>;
 };
 
-export const TextFields = ({ showCode, setShowCode }: TextFieldsProps) => {
+export const TextFields = ({
+  className,
+  showCode,
+  setShowCode,
+}: TextFieldsProps) => {
   const {
     register,
     trigger,
@@ -30,43 +35,45 @@ export const TextFields = ({ showCode, setShowCode }: TextFieldsProps) => {
   };
 
   return (
-    <>
-      <Input
-        {...register('email', {
-          required: true,
-          pattern: {
-            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-            message: '이메일 형식이 아닙니다',
-          },
-          validate: {
-            checkDupEmail: () => true || '중복된 이메일입니다', // TODO: 이메일 중복 확인 api
-          },
-        })}
-        isValid={fieldValidStyle('email') && !(errors.code?.type === 'empty')}
-        placeholder='이메일'
-        right={
-          <button
-            type='button' // submit 방지
-            onClick={async () => {
-              const isValid = await fieldValid('email');
-              setShowCode(isValid);
-              if (!isValid) return;
-              // TODO: 인증 요청 api 호출
-            }}
-            className='bg-secondary rounded-[3px] px-1.5 py-1 text-[10px] text-white'
-          >
-            인증
-          </button>
+    <div className={className}>
+      <div>
+        <Input
+          {...register('email', {
+            required: true,
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: '이메일 형식이 아닙니다',
+            },
+            validate: {
+              checkDupEmail: () => true || '중복된 이메일입니다', // TODO: 이메일 중복 확인 api
+            },
+          })}
+          isValid={fieldValidStyle('email') && !(errors.code?.type === 'empty')}
+          placeholder='이메일'
+          right={
+            <button
+              type='button' // submit 방지
+              onClick={async () => {
+                const isValid = await fieldValid('email');
+                setShowCode(isValid);
+                if (!isValid) return;
+                // TODO: 인증 요청 api 호출
+              }}
+              className='bg-secondary rounded-[3px] px-1.5 py-1 text-[10px] text-white'
+            >
+              인증
+            </button>
+          }
+        />
+        {
+          <ErrorMessage>
+            <>
+              {errors.email?.message ||
+                (errors.code?.type === 'empty' && errors.code.message)}
+            </>
+          </ErrorMessage>
         }
-      />
-      {
-        <ErrorMessage>
-          <>
-            {errors.email?.message ||
-              (errors.code?.type === 'empty' && errors.code.message)}
-          </>
-        </ErrorMessage>
-      }
+      </div>
 
       {showCode && !errors.email && (
         <Input
@@ -83,36 +90,40 @@ export const TextFields = ({ showCode, setShowCode }: TextFieldsProps) => {
           }
         />
       )}
-      <Input
-        {...register('password', {
-          required: true,
-          pattern: {
-            value: /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/,
-            message: '영어, 숫자, 특수문자를 포함한 8-20자리를 입력해주세요',
-          },
-        })}
-        type='password'
-        placeholder='비밀번호'
-        isValid={fieldValidStyle('password')}
-      />
-      <ErrorMessage>
-        <>{errors.password?.message}</>
-      </ErrorMessage>
-      <Input
-        {...register('confirmPassword', {
-          required: true,
-          validate: (value, formValues) =>
-            value === formValues.password || '비밀번호가 일치하지 않습니다',
-        })}
-        isValid={fieldValidStyle('confirmPassword')}
-        type='password'
-        placeholder='비밀번호 확인'
-      />
-      {
+      <div>
+        <Input
+          {...register('password', {
+            required: true,
+            pattern: {
+              value: /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/,
+              message: '영어, 숫자, 특수문자를 포함한 8-20자리를 입력해주세요',
+            },
+          })}
+          type='password'
+          placeholder='비밀번호'
+          isValid={fieldValidStyle('password')}
+        />
         <ErrorMessage>
-          <>{errors.confirmPassword?.message}</>
+          <>{errors.password?.message}</>
         </ErrorMessage>
-      }
-    </>
+      </div>
+      <div>
+        <Input
+          {...register('confirmPassword', {
+            required: true,
+            validate: (value, formValues) =>
+              value === formValues.password || '비밀번호가 일치하지 않습니다',
+          })}
+          isValid={fieldValidStyle('confirmPassword')}
+          type='password'
+          placeholder='비밀번호 확인'
+        />
+        {
+          <ErrorMessage>
+            <>{errors.confirmPassword?.message}</>
+          </ErrorMessage>
+        }
+      </div>
+    </div>
   );
 };

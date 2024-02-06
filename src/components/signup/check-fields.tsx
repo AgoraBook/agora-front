@@ -51,9 +51,13 @@ const Field = forwardRef(
   }
 );
 
+type CheckFieldsProps = {
+  className?: string;
+};
+
 const FIELDS_NAME = 'agreement'; // register 인자로 들어갈 name
 
-export const CheckFields = () => {
+export const CheckFields = ({ className }: CheckFieldsProps) => {
   const {
     register,
     formState: { errors, isSubmitting },
@@ -71,7 +75,7 @@ export const CheckFields = () => {
   }, [isSubmitting]);
 
   return (
-    <>
+    <div className={className}>
       <Field
         {...register(FIELDS_NAME, { required: true })}
         value='age'
@@ -92,6 +96,6 @@ export const CheckFields = () => {
         isValid={fieldValid}
         url='http://www.naver.com'
       />
-    </>
+    </div>
   );
 };

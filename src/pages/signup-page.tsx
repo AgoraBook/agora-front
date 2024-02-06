@@ -2,6 +2,9 @@ import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { TextFields } from '../components/signup/text-fields';
 import { CheckFields } from '../components/signup/check-fields';
+import { Header } from '../components/common/header';
+import { AuthLayout } from '../components/layout/auth-layout';
+import Button from '../components/common/button';
 
 type FormInputs = {
   email: string;
@@ -32,14 +35,24 @@ export const SignupPage = () => {
   };
 
   return (
-    <div className='w-[350px]'>
+    <AuthLayout>
+      <Header text='회원가입' />
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(formValid, formInvalid)}>
-          <TextFields showCode={showCode} setShowCode={setShowCode} />
-          <CheckFields />
-          <button type='submit'>Submit</button>
+        <form
+          onSubmit={methods.handleSubmit(formValid, formInvalid)}
+          className='mt-[18px] flex flex-1 flex-col justify-between'
+        >
+          <TextFields
+            className='flex flex-col gap-[15px]'
+            showCode={showCode}
+            setShowCode={setShowCode}
+          />
+          <CheckFields className='flex flex-col gap-[15px]' />
+          <Button color='secondary' size='xl' type='submit'>
+            Submit
+          </Button>
         </form>
       </FormProvider>
-    </div>
+    </AuthLayout>
   );
 };
