@@ -10,8 +10,7 @@ import {
 type InputType = {
   left?: ReactNode;
   right?: ReactNode;
-  isError?: boolean;
-  isValid?: boolean;
+  isValid?: boolean | null;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export const Input = forwardRef(
@@ -19,8 +18,8 @@ export const Input = forwardRef(
     {
       left,
       right,
-      isError,
-      isValid,
+      // isError,
+      isValid = null,
       children,
       ...props
     }: PropsWithChildren<InputType>,
@@ -29,9 +28,12 @@ export const Input = forwardRef(
     return (
       <div
         className={clsx(
-          isValid && 'border-secondary',
-          isError && 'border-error',
-          'focus-within:border-secondary flex w-full items-center rounded-[6px] border-[1.5px] border-solid border-[#ADB6BD] bg-white p-2.5 focus-within:border-[2px] '
+          'focus-within:border-secondary flex w-full items-center rounded-[6px] border-[1.5px] border-solid  bg-white p-2.5 focus-within:border-[2px] ',
+          isValid === null
+            ? 'border-[#ADB6BD]'
+            : isValid
+              ? '!border-secondary'
+              : '!border-error'
         )}
       >
         {left}
@@ -40,7 +42,7 @@ export const Input = forwardRef(
           className={clsx(
             left && 'ml-[5px]',
             right && 'mr-[5px]',
-            ' flex-1 text-[15px] outline-none '
+            'flex-1 appearance-none text-[15px] outline-none'
           )}
           {...props}
         />

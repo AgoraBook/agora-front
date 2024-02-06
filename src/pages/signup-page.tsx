@@ -1,7 +1,9 @@
-import { FieldErrors, SubmitErrorHandler, useForm } from 'react-hook-form';
+import { FieldErrors, useForm } from 'react-hook-form';
 import { Input } from '../components/common/input';
 import { ErrorMessage } from '../components/common/error-message';
 import { useState } from 'react';
+
+type FormInputName = 'email' | 'code' | 'password' | 'confirmPassword';
 
 type FormInputs = {
   email: string;
@@ -16,19 +18,34 @@ export const SignupPage = () => {
     register,
     handleSubmit,
     trigger,
-    formState: { errors },
-  } = useForm<FormInputs>({ shouldUseNativeValidation: false });
+    formState: { errors, touchedFields },
+  } = useForm<FormInputs>({
+    shouldUseNativeValidation: false,
+    mode: 'onBlur',
+  });
 
-  const onValid = (data: FormInputs) => {
+  const formValid = (data: FormInputs) => {
     console.log(data);
   };
-  const onInvalid = (data: FieldErrors<FormInputs>) => {
-    console.log(data);
+  const formInvalid = (errors: FieldErrors<FormInputs>) => {
+    console.log(errors);
+  };
+
+  // 바로 필드의 유효성을 검사
+  const fieldValid = async (field: FormInputName) =>
+    await trigger(field, { shouldFocus: true });
+
+  // 유효한 필드의 보더 스타일을 유지하기 위한 검사
+  const fieldValidStyle = (field: FormInputName) => {
+    if (!touchedFields[field]) return null;
+    if (touchedFields[field] && !Object.keys(errors).includes(field))
+      return true;
+    return false;
   };
 
   return (
-    <div className='350px'>
-      <form onSubmit={handleSubmit(onValid, onInvalid)}>
+    <div className='w-[350px]'>
+      <form onSubmit={handleSubmit(formValid, formInvalid)}>
         <Input
           {...register('email', {
             required: true,
@@ -40,14 +57,13 @@ export const SignupPage = () => {
               checkDupEmail: () => true || '중복된 이메일입니다', // TODO: 이메일 중복 확인 api
             },
           })}
+          isValid={fieldValidStyle('email')}
           placeholder='이메일'
           right={
             <button
               type='button' // submit 방지
               onClick={async () => {
-                const isValid = await trigger('email', {
-                  shouldFocus: true,
-                });
+                const isValid = await fieldValid('email');
                 setShowCode(isValid);
                 if (!isValid) return;
                 // TODO: 인증 요청 api 호출
@@ -62,9 +78,13 @@ export const SignupPage = () => {
 
         {showCode && !errors.email && (
           <Input
-            {...register('code', { required: true })}
+            {...register('code', {
+              required: true,
+              validate: () => true || '인증번호가 일치하지 않습니다', // TODO: 인증코드 대조 로직
+            })}
             type='number'
             placeholder='인증번호'
+            isValid={fieldValidStyle('code')}
             // TODO: 타이머 로직
             right={
               <div className='text-error text-[12px] tabular-nums'>04:29</div>
@@ -77,6 +97,7 @@ export const SignupPage = () => {
           })}
           type='password'
           placeholder='비밀번호'
+          isValid={fieldValidStyle('password')}
         />
         <Input
           {...register('confirmPassword', {
@@ -84,6 +105,7 @@ export const SignupPage = () => {
             validate: (value, formValues) =>
               value === formValues.password || '비밀번호가 일치하지 않습니다',
           })}
+          isValid={fieldValidStyle('confirmPassword')}
           type='password'
           placeholder='비밀번호 확인'
         />

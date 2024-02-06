@@ -5,3 +5,15 @@
 :root {
   font-family: 'Pretendard', sans-serif;
 }
+
+/* input[type="number"] 우측의 증감 화살표 제거 */
+@layer base {
+  input[type='number'].appearance-none::-webkit-inner-spin-button,
+  input[type='number'].appearance-none::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'].appearance-none {
+    -moz-appearance: textfield;
+  }
+}
