@@ -86,11 +86,18 @@ export const TextFields = ({ showCode, setShowCode }: TextFieldsProps) => {
       <Input
         {...register('password', {
           required: true,
+          pattern: {
+            value: /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/,
+            message: '영어, 숫자, 특수문자를 포함한 8-20자리를 입력해주세요',
+          },
         })}
         type='password'
         placeholder='비밀번호'
         isValid={fieldValidStyle('password')}
       />
+      <ErrorMessage>
+        <>{errors.password?.message}</>
+      </ErrorMessage>
       <Input
         {...register('confirmPassword', {
           required: true,
