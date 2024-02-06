@@ -18,6 +18,7 @@ export const SignupPage = () => {
     register,
     handleSubmit,
     trigger,
+    setError,
     formState: { errors, touchedFields },
   } = useForm<FormInputs>({
     shouldUseNativeValidation: false,
@@ -25,6 +26,8 @@ export const SignupPage = () => {
   });
 
   const formValid = (data: FormInputs) => {
+    if (!showCode)
+      setError('code', { type: 'empty', message: '이메일을 인증해주세요' });
     console.log(data);
   };
   const formInvalid = (errors: FieldErrors<FormInputs>) => {
@@ -57,7 +60,7 @@ export const SignupPage = () => {
               checkDupEmail: () => true || '중복된 이메일입니다', // TODO: 이메일 중복 확인 api
             },
           })}
-          isValid={fieldValidStyle('email')}
+          isValid={fieldValidStyle('email') && !(errors.code?.type === 'empty')}
           placeholder='이메일'
           right={
             <button
@@ -74,7 +77,12 @@ export const SignupPage = () => {
             </button>
           }
         />
-        {<ErrorMessage>{errors.email?.message}</ErrorMessage>}
+        {
+          <ErrorMessage>
+            {errors.email?.message ||
+              (errors.code?.type === 'empty' && errors.code.message)}
+          </ErrorMessage>
+        }
 
         {showCode && !errors.email && (
           <Input
