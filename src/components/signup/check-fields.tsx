@@ -16,10 +16,10 @@ type FieldProps = {
 
 const Field = forwardRef(
   (
-    { text, isValid, url, ...props }: FieldProps,
+    { text, isValid = true, url, ...props }: FieldProps,
     ref: ForwardedRef<HTMLInputElement>
   ) => {
-    const [checked, setChecked] = useState<boolean | null>(null);
+    const [checked, setChecked] = useState<boolean>(false);
     return (
       <>
         <div className=' flex items-center gap-2.5 text-[12px]'>
@@ -31,6 +31,7 @@ const Field = forwardRef(
               type='checkbox'
               className='appearance-none'
               onClick={() => setChecked(!checked)}
+              checked={checked}
               ref={ref}
               {...props}
             />
@@ -65,14 +66,17 @@ export const CheckFields = ({ className }: CheckFieldsProps) => {
 
   // text fields (사용자 정보) 가 invalid한 경우,
   // check fields (동의 항목) 는 invalid 표시가 나타나지 않도록 별도의 상태로 관리
-  const [fieldValid, setFieldValid] = useState<boolean>();
+  const [fieldValid, setFieldValid] = useState<boolean>(true);
 
   useEffect(() => {
     const disagreements = AGREEMENTS.map((a) =>
       Object.keys(errors).includes(a)
+    ).filter((a) => a);
+    setFieldValid(
+      !Object.keys(errors).length ||
+        disagreements.length !== Object.keys(errors).length
     );
-    setFieldValid(disagreements.length < Object.keys(errors).length);
-    console.log(errors);
+    console.log(Object.keys(errors).length, disagreements.length);
   }, [isSubmitting]);
 
   return (
