@@ -1,13 +1,20 @@
 import clsx from 'clsx';
 import { LogoSVG } from '../../assets/icons/logo';
 import { HTMLAttributes, PropsWithChildren } from 'react';
+import SpaceBackground from '../../assets/images/space-background.svg';
 
 export const AuthLayout = ({
   className,
   children,
 }: PropsWithChildren<HTMLAttributes<HTMLDivElement>>) => {
   return (
-    <div className='m-auto flex h-screen w-screen items-center justify-around bg-gray-900'>
+    <div
+      className='m-auto flex h-screen w-screen items-center justify-around bg-[#061028]'
+      style={{
+        backgroundImage: `url(${SpaceBackground})`,
+        backgroundSize: 'cover',
+      }}
+    >
       <LogoSVG />
       <div
         className={clsx(
