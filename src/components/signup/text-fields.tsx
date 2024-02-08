@@ -22,7 +22,7 @@ export const TextFields = ({
     formState: { errors, touchedFields },
   } = useFormContext();
 
-  // 바로 필드의 유효성을 검사
+  // 필드의 유효성을 즉시 검사
   const fieldValid = async (field: TextFieldName) =>
     await trigger(field, { shouldFocus: true });
 

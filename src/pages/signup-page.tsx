@@ -23,11 +23,13 @@ export const SignupPage = () => {
   });
 
   const formValid = () => {
+    /**  인증 코드 필드는 인증 버튼을 누르기 전까지는 보이지 않아서 에러 캐치 불가. 강제로 에러 발생 */
     if (!showCode)
       methods.setError('code', {
         type: 'empty',
         message: '이메일을 인증해주세요',
       });
+    // TODO: signup api 호출
     return;
   };
   const formInvalid = (errors: FieldErrors<FormInputs>) => {
