@@ -55,7 +55,7 @@ type CheckFieldsProps = {
   className?: string;
 };
 
-const FIELDS_NAME = 'agreement'; // register 인자로 들어갈 name
+const AGREEMENTS = ['age', 'service', 'privacy'];
 
 export const CheckFields = ({ className }: CheckFieldsProps) => {
   const {
@@ -63,34 +63,35 @@ export const CheckFields = ({ className }: CheckFieldsProps) => {
     formState: { errors, isSubmitting },
   } = useFormContext();
 
-  // text fields가 invalid한 경우, check fields는 invalid 표시가 나타나지 않도록 별도의 상태로 관리
+  // text fields (사용자 정보) 가 invalid한 경우,
+  // check fields (동의 항목) 는 invalid 표시가 나타나지 않도록 별도의 상태로 관리
   const [fieldValid, setFieldValid] = useState<boolean>();
 
   useEffect(() => {
-    setFieldValid(
-      !Object.keys(errors).includes(FIELDS_NAME) ||
-        Object.keys(errors).length > 1
+    const disagreements = AGREEMENTS.map((a) =>
+      Object.keys(errors).includes(a)
     );
+    setFieldValid(disagreements.length < Object.keys(errors).length);
     console.log(errors);
   }, [isSubmitting]);
 
   return (
     <div className={className}>
       <Field
-        {...register(FIELDS_NAME, { required: true })}
+        {...register('age', { required: true })}
         value='age'
         text='만 14세 이상입니다'
         isValid={fieldValid}
       />
       <Field
-        {...register(FIELDS_NAME, { required: true })}
+        {...register('service', { required: true })}
         value='service'
         text='서비스 약관에 동의합니다'
         isValid={fieldValid}
         url='http://www.naver.com'
       />
       <Field
-        {...register(FIELDS_NAME, { required: true })}
+        {...register('privacy', { required: true })}
         value='privacy'
         text='개인정보 수집 및 이용에 동의합니다'
         isValid={fieldValid}
