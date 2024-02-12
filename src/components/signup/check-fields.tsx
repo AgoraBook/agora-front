@@ -23,15 +23,17 @@ const Field = forwardRef(
     return (
       <>
         <div className=' flex items-center gap-2.5 text-[12px]'>
-          <CheckSVG
-            stroke={checked ? '#03878C' : !isValid ? '#ff0000' : '#ADB6BD'}
-          />
+          <div onClick={() => setChecked(!checked)}>
+            <CheckSVG
+              stroke={checked ? '#03878C' : !isValid ? '#ff0000' : '#ADB6BD'}
+            />
+          </div>
           <label>
             <input
               type='checkbox'
               className='appearance-none'
-              onClick={() => setChecked(!checked)}
               checked={checked}
+              onClick={() => setChecked(!checked)}
               ref={ref}
               {...props}
             />
@@ -82,21 +84,21 @@ export const CheckFields = ({ className }: CheckFieldsProps) => {
   return (
     <div className={className}>
       <Field
-        {...register('age', { required: true })}
-        value='age'
+        {...register(AGREEMENTS[0], { required: true })}
+        value={AGREEMENTS[0]}
         text='만 14세 이상입니다'
         isValid={fieldValid}
       />
       <Field
-        {...register('service', { required: true })}
-        value='service'
+        {...register(AGREEMENTS[1], { required: true })}
+        value={AGREEMENTS[1]}
         text='서비스 약관에 동의합니다'
         isValid={fieldValid}
         url='http://www.naver.com'
       />
       <Field
-        {...register('privacy', { required: true })}
-        value='privacy'
+        {...register(AGREEMENTS[2], { required: true })}
+        value={AGREEMENTS[2]}
         text='개인정보 수집 및 이용에 동의합니다'
         isValid={fieldValid}
         url='http://www.naver.com'
