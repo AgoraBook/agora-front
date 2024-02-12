@@ -27,12 +27,12 @@ export const Input = forwardRef(
     return (
       <div
         className={clsx(
-          'focus-within:border-secondary flex w-full items-center rounded-[6px] border-[1.5px] border-solid  bg-white p-2.5 focus-within:border-[2px] ',
+          'focus-within:ring-secondary flex w-full items-center rounded-[6px] border-[1.5px] border-solid  bg-white p-2.5 focus-within:ring-[2px] ',
           isValid === null
-            ? 'border-[#ADB6BD]'
+            ? 'ring-[#ADB6BD]'
             : isValid
-              ? '!border-secondary'
-              : '!border-error'
+              ? '!ring-secondary'
+              : '!ring-error'
         )}
       >
         {left}
